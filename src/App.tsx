@@ -1,7 +1,7 @@
 
 import styled, { createGlobalStyle } from 'styled-components';
-import ToDoList from './ToDoList';
-import ToDoList2 from './components/ToDoList2';
+import ToDoList1 from './ToDoList_1';
+import ToDoList from './components/ToDoList';
 
 const Globalstyle = createGlobalStyle`
 
@@ -78,8 +78,8 @@ function App() {
   return (
     <>
         <Globalstyle />
-        {/*<ToDoList />*/}
-        <ToDoList2 />
+        {/*<ToDoList_1 />*/}
+        <ToDoList />
     </>
   );
 }

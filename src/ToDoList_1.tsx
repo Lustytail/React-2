@@ -10,7 +10,7 @@ interface IFormData{
     extraError?: string
 }
 
-function ToDoList() {
+function ToDoList_1() {
     const {register, watch, handleSubmit, formState:{errors}, setError}= useForm<IFormData>({
         defaultValues: {
             email: "@naver.com"
@@ -67,4 +67,4 @@ function ToDoList() {
 //     </div>;
 // }
 
-export default ToDoList;
+export default ToDoList_1;
