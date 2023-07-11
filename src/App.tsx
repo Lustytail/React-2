@@ -72,14 +72,22 @@ a {
 }
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  width: 600px;
+`;
 
 function App() {
 
   return (
     <>
         <Globalstyle />
-        {/*<ToDoList_1 />*/}
-        <ToDoList />
+        <Container>
+          <ToDoList />
+        </Container>
     </>
   );
 }

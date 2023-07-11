@@ -1,13 +1,39 @@
-import { useSetRecoilState } from "recoil";
-import {Categories, IToDo, toDoState} from "../atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {Categories, IToDo, categoriesState, toDoState} from "../atoms";
+import { styled } from "styled-components";
 
+const ToDoLi = styled.li`
+    width: 400px;
+    margin: 10px 20px;
+    display: flex;
+    align-items: center;
+`;
+
+const Span = styled.span`
+    margin: 0 32px;
+    font-size: 20px;
+`;
+
+const Button = styled.button`
+    size: 10px;
+    background-color: #a9a0e7;
+    border-color: darkslateblue;
+    border: groove;
+    border-top: hidden;
+    border-left: hidden;
+    border-radius: 7px;
+    margin: 0 1px;
+    cursor: pointer;
+
+`;
 function ToDo({text, id, category}: IToDo) {
     const setToDos = useSetRecoilState(toDoState);
+    const categories = useRecoilValue(categoriesState);
     const onClick = (category: IToDo["category"]) => {
         setToDos( (oldToDos) => {
             const index = oldToDos.findIndex(toDo => toDo.id === id);
             const oldToDo = oldToDos[index];
-            const newToDo = {text: oldToDo.text, id: oldToDo.id, category: category};
+            const newToDo = {text: oldToDo.text, id: oldToDo.id, category};
 
             return [...oldToDos.slice(0,index), newToDo, ...oldToDos.slice(index+1)];
         } )
@@ -21,13 +47,15 @@ function ToDo({text, id, category}: IToDo) {
         })
     }
     return (
-        <li>
-            <span>{text}</span>
-            {category !== Categories.TO_DO && <button onClick={()=> onClick(Categories.TO_DO)}>To Do</button>}
-            {category !== Categories.DOING && <button onClick={()=> onClick(Categories.DOING)}>Doing</button>}
-            {category !== Categories.DONE && <button onClick={()=> onClick(Categories.DONE)}>Done</button>}
-            <button onClick={onDelete}>❌</button>
-        </li>
+        <ToDoLi>
+            <Span>{text}</Span>
+            {categories.map((cate: string) => {
+                return (
+                    (cate !== category) && <Button key={cate} onClick={()=> onClick(cate)}>{cate}</Button>
+                ); 
+            })}
+            <Button onClick={onDelete}>❌</Button>
+        </ToDoLi>
     );
 }
 

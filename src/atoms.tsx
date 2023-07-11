@@ -10,8 +10,10 @@ export enum Categories {
 export interface IToDo{
     text: string;
     id: number;
-    category: Categories;
+    category: string;
 }
+
+let defaultCategory = ["TO_DO", "DOING", "DONE"];
 
 const { persistAtom } = recoilPersist();
 
@@ -23,7 +25,13 @@ export const toDoState = atom<IToDo[]>({
 
 export const categoryState = atom({
     key: "category",
-    default: Categories.TO_DO
+    default: defaultCategory[0]
+});
+
+export const categoriesState = atom({
+    key: "categories",
+    default: defaultCategory,
+    effects_UNSTABLE: [persistAtom]
 });
 
 export const toDoSelector = selector ({
@@ -32,11 +40,6 @@ export const toDoSelector = selector ({
         const toDos = get(toDoState);
         const category = get(categoryState);
 
-        if(category === Categories.TO_DO)
-            return  toDos.filter(toDo => toDo.category === Categories.TO_DO);
-        if(category === Categories.DOING)
-            return toDos.filter(toDo => toDo.category === Categories.DOING);
-        if(category === Categories.DONE)
-            return toDos.filter(toDo => toDo.category === Categories.DONE);
+        return  toDos.filter(toDo => toDo.category === category);
     }
 })
