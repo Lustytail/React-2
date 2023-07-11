@@ -3,14 +3,15 @@ import {Categories, IToDo, categoriesState, toDoState} from "../atoms";
 import { styled } from "styled-components";
 
 const ToDoLi = styled.li`
-    width: 400px;
+    width: 600px;
     margin: 10px 20px;
     display: flex;
     align-items: center;
+    justify-content: right;
 `;
 
 const Span = styled.span`
-    margin: 0 32px;
+    margin: 0 15px;
     font-size: 20px;
 `;
 
@@ -49,11 +50,13 @@ function ToDo({text, id, category}: IToDo) {
     return (
         <ToDoLi>
             <Span>{text}</Span>
+            <div style={{margin: "10px"}}>
             {categories.map((cate: string) => {
                 return (
                     (cate !== category) && <Button key={cate} onClick={()=> onClick(cate)}>{cate}</Button>
                 ); 
             })}
+            </div>
             <Button onClick={onDelete}>❌</Button>
         </ToDoLi>
     );

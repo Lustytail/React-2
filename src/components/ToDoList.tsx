@@ -40,14 +40,16 @@ function ToDoList() {
         setValue("category", "");
     }
 
-    return <div>
+    return <div style={{width: "800px"}}>
         <H1>To Dos</H1>
         <form onSubmit={handleSubmit(onValid)}>
             <input {...register("category", {required: "Input new category"})} placeholder="Input category"></input>
             <button>Add</button>
         </form>
         <H2>{errors?.category?.message}</H2>
+        <br />
         <hr />
+        <br />
         <form>
             <select value={category} onInput={onInput}>
                 {categories.map((cate: string) => {
@@ -56,7 +58,9 @@ function ToDoList() {
             </select>
         </form>
         <CreateToDo />
+        <br />
         <hr />
+        <br />
         <H1>{category}</H1>
         <ul>
             {list?.map((list) => (
